@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+{% block body %}
+    <div class="container my-3">
+      <h3>Add Todo list</h3>
+      <form action="/" method="POST">
+        <div class="mb-3">
+          <label for="title" class="form-label">Todo Title</label>
+          <input
+            type="text"
+            class="form-control"
+            name="title"
+            id="title"
+            required
+            placeholder=""
+          />
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Todo Description</label>
+          <textarea
+            class="form-control"
+            name="description"
+            id="description"
+            rows="3"
+            required
+          ></textarea>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div class="container my-3">
+      <h4>Todo List</h4>
+      {% if allTodo|length == 0 %} 
+      <div class="alert alert-dark" role="alert">
+        No record found!! Add your first Todo Now.
+      </div> {% else %}
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sno.</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Time</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for todo in allTodo %}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{todo.title}}</td>
+            <td>{{todo.description}}</td>
+            <td>{{todo.date_created}}</td>
+            <td>
+              <a
+                href="/delete/{{todo.sno}}"
+                type="button"
+                class="btn btn-dark btn-sm"
+                >Delete</a
+              >
+              <a
+                href="/update/{{todo.sno}}"
+                type="button"
+                class="btn btn-dark btn-sm"
+                >Update</a
+              >
+            </td>
+          </tr>
+          {% endfor %} {% endif %}
+        </tbody>
+      </table>
+    </div>
+
+    {% endblock body %}
