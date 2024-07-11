@@ -54,5 +54,34 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"
   ></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function deleteTodo(todoId) {
+            $.ajax({
+                url: '/delete',
+                type: 'POST',
+                data: { id: todoId },
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.message);
+                        // Remove the deleted todo from the DOM
+                        $('#todo-' + todoId).remove();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                    alert('An error occurred while trying to delete the todo.');
+                }
+            });
+        }
+    </script>
+
+
+
+
+
 </body>
 </html>

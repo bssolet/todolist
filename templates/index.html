@@ -32,6 +32,17 @@
     </div>
     <div class="container my-3">
       <h4>Todo List</h4>
+      {% with messages = get_flashed_messages()  %}
+        {% if messages %}
+        {% for message in  messages %}         
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          Todo "{{ todoname }}" {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+          
+        {% endif %}
+      {% endwith %}
       {% if allTodo|length == 0 %} 
       <div class="alert alert-dark" role="alert">
         No record found!! Add your first Todo Now.
@@ -49,18 +60,19 @@
         </thead>
         <tbody>
           {% for todo in allTodo %}
-          <tr>
+          <tr id="todo-{{ todo.sno }}">
             <th scope="row">{{loop.index}}</th>
             <td>{{todo.title}}</td>
             <td>{{todo.description}}</td>
             <td>{{todo.date_created}}</td>
             <td>
-              <a
+              <!-- <a
                 href="/delete/{{todo.sno}}"
                 type="button"
                 class="btn btn-dark btn-sm"
                 >Delete</a
-              >
+              > -->
+              <button class="btn btn-dark btn-sm" onclick="deleteTodo('{{ todo.sno }}')">Delete</button>
               <a
                 href="/update/{{todo.sno}}"
                 type="button"
