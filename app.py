@@ -26,21 +26,22 @@ app.app_context().push()
 # Define the home route
 @app.route('/', methods =['GET', 'POST'])
 def home():
-    title = None
+   
     if(request.method=='POST'):
         title = request.form['title']
         description = request.form['description']
         todo = Todo(title=title, description=description)
         db.session.add(todo)
         db.session.commit()
-        flash("Added!")
+        flash("Todo Added!")
     allTodo = Todo.query.all()
     print(allTodo)
-    return render_template('index.html', allTodo = allTodo, todoname = title)
+    return render_template('index.html', allTodo = allTodo)
 
 # Define the about route
 @app.route('/update/<int:sno>', methods=['GET', 'POST'])
 def update(sno):
+  
     if(request.method=='POST'):
         title = request.form['title']
         description = request.form['description']
@@ -49,6 +50,8 @@ def update(sno):
         todo.description = description
         db.session.add(todo)
         db.session.commit()
+        flash("Todo list updated successfully!")
+        
         return redirect("/")
         
     todo = Todo.query.filter_by(sno=sno).first()

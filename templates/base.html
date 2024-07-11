@@ -80,7 +80,18 @@
     </script>
 
 
-
+<script>
+  // Automatically close the alert after 2 seconds
+  setTimeout(function() {
+    var alertDiv = document.getElementById('autoCloseAlert');
+    alertDiv.classList.remove('show'); // Remove the 'show' class to trigger fade-out
+    
+    // Remove the alert from the DOM after fade-out completes (300ms, adjust as needed)
+    setTimeout(function() {
+      alertDiv.remove();
+    }, 300);
+  }, 2000);
+</script>
 
 
 </body>
