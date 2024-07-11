@@ -52,7 +52,7 @@ def update(sno):
         return redirect("/")
         
     todo = Todo.query.filter_by(sno=sno).first()
-    return render_template('update.html', todo = todo)
+    return render_template('update.html', todo = todo) 
 
 
 @app.route('/delete', methods=['POST'])
